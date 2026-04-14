@@ -38,6 +38,7 @@ import { DeleteModalComponent } from 'src/components/delete-modal/index.componen
 import event from 'src/utils/mitt'
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker'
 import { filter } from 'rxjs/operators'
+import { injectSpeedInsights } from '@vercel/speed-insights'
 
 @Component({
   standalone: true,
@@ -68,6 +69,9 @@ export class AppComponent {
     private modal: NzModalService,
     private swUpdate: SwUpdate,
   ) {
+    // Initialize Vercel Speed Insights
+    injectSpeedInsights({ framework: 'angular' })
+
     this.registerEvents()
     this.registerKeyboard()
     this.router.events.subscribe((event) => {
