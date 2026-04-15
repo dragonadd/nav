@@ -30,6 +30,9 @@ import { ClassTabsComponent } from 'src/components/class-tabs/index.component'
 import type { INavProps } from 'src/types'
 import { SidebarComponent } from 'src/components/sidebar/index.component'
 
+// 👇 这里导入渐变方法（关键！）
+import { randomBgImg, removeBgImg } from 'src/utils'
+
 @Component({
   standalone: true,
   imports: [
@@ -63,10 +66,16 @@ export default class SimComponent {
 
   ngOnDestroy() {
     this.commonService.setOverIndex()
+    removeBgImg() // 👇 退出时清理背景
   }
 
   get isEllipsis() {
     return this.commonService.settings().simOverType === 'ellipsis'
+  }
+
+  // 👇 这里加入渐变（关键！）
+  ngOnInit() {
+    randomBgImg()
   }
 
   ngAfterViewInit() {
