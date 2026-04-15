@@ -175,9 +175,9 @@ const main = async () => {
     const image = {
       type: ComponentType.Image,
       id: -ComponentType.Image,
-      url: 'https://gcore.jsdelivr.net/gh/xjh22222228/public@gh-pages/nav/component1.jpg',
+      url: 'https://cdn.jsdelivr.net/gh/dragonadd/images@master/web/A%E7%BB%9D%E5%AF%B9%E9%A2%86%E5%9F%9F.png',
       go: '',
-      text: '只有认可，才能强大',
+      text: 'JKKKKKKK',
     }
     if (idx >= 0) {
       component.components[idx] = {
