@@ -1,12 +1,3 @@
-#random-light-bg {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: -3 !important;
-  opacity: 0.3 !important;
-  transition: background 1s linear !important;
-  pointer-events: none !important;
-}
-
 @media (max-width: 1280px) {
   .sim {
     --width: 1000px !important;
