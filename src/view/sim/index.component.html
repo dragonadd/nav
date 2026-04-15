@@ -1,6 +1,5 @@
-<!-- 👇 渐变样式 -->
-<div id="random-light-bg" class="dark-bg" style="position: fixed; inset: 0; z-index: -3; opacity: 0.3; transition: background 1s linear;"></div>
-
+<div id="random-light-bg" style="position:fixed;inset:0;z-index:-3;opacity:0.3;background:linear-gradient(135deg, #a8edea, #fed6e3, #f0cbf7, #c6f0f7);background-size:400% 400%;animation:gradient 12s ease infinite;"></div>
+<style>@keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}</style>
 
 <div class="sim">
   <nz-spin
@@ -53,7 +52,6 @@
     >
       {{ item.title }}
     </span>
-    <!-- More -->
     <app-web-more-menu
       *ngIf="commonService.overIndex < commonService.navs().length"
       [data]="commonService.navs().slice(commonService.overIndex, 99999)"
