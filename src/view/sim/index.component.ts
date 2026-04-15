@@ -12,7 +12,8 @@ import {
 import { CommonModule } from '@angular/common'
 import { settings } from 'src/store'
 import { compilerTemplate } from 'src/utils/utils'
-import { scrollIntoViewLeft } from 'src/utils'
+// 👇 导入light主题用的随机渐变工具函数
+import { randomBgImg, removeBgImg, scrollIntoViewLeft } from 'src/utils'
 import { CommonService } from 'src/services/common'
 import { ComponentGroupComponent } from 'src/components/component-group/index.component'
 import { WebMoreMenuComponent } from 'src/components/web-more-menu/index.component'
@@ -61,8 +62,18 @@ export default class SimComponent {
 
   constructor(public commonService: CommonService) {}
 
+  // 👇 调用light主题的随机渐变函数，1:1复刻效果
+  ngOnInit() {
+    // 加延迟确保DOM渲染完成，100%命中元素
+    setTimeout(() => {
+      randomBgImg()
+    }, 100)
+  }
+
   ngOnDestroy() {
     this.commonService.setOverIndex()
+    // 👇 退出时清理渐变，防止残留
+    removeBgImg()
   }
 
   get isEllipsis() {
