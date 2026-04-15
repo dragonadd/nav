@@ -12,7 +12,7 @@ import {
 import { CommonModule } from '@angular/common'
 import { settings } from 'src/store'
 import { compilerTemplate } from 'src/utils/utils'
-import { scrollIntoViewLeft } from 'src/utils'
+import { randomBgImg, removeBgImg, scrollIntoViewLeft } from 'src/utils'
 import { CommonService } from 'src/services/common'
 import { ComponentGroupComponent } from 'src/components/component-group/index.component'
 import { WebMoreMenuComponent } from 'src/components/web-more-menu/index.component'
@@ -29,9 +29,6 @@ import { ToolbarTitleWebComponent } from 'src/components/toolbar-title/index.com
 import { ClassTabsComponent } from 'src/components/class-tabs/index.component'
 import type { INavProps } from 'src/types'
 import { SidebarComponent } from 'src/components/sidebar/index.component'
-
-// 👇 这里导入渐变方法（关键！）
-import { randomBgImg, removeBgImg } from 'src/utils'
 
 @Component({
   standalone: true,
@@ -64,21 +61,18 @@ export default class SimComponent {
 
   constructor(public commonService: CommonService) {}
 
-  ngOnDestroy() {
-    this.commonService.setOverIndex()
-    removeBgImg() // 👇 退出时清理背景
-  }
-
-  get isEllipsis() {
-    return this.commonService.settings().simOverType === 'ellipsis'
-  }
-
-  // 👇 这里加入渐变（关键！）
+  // 👉 双重保险：ngOnInit + ngAfterViewInit 都执行，确保生效
   ngOnInit() {
+    // 第一次执行
     randomBgImg()
   }
 
   ngAfterViewInit() {
+    // 第二次执行，DOM 完全渲染后再调用，100% 命中
+    setTimeout(() => {
+      randomBgImg()
+    }, 200)
+
     if (this.isEllipsis) {
       this.commonService.getOverIndex('.top-nav .over-item')
     } else {
@@ -90,6 +84,16 @@ export default class SimComponent {
         },
       )
     }
+  }
+
+  ngOnDestroy() {
+    this.commonService.setOverIndex()
+    // 退出时清理背景，防止残留
+    removeBgImg()
+  }
+
+  get isEllipsis() {
+    return this.commonService.settings().simOverType === 'ellipsis'
   }
 
   handleClickTop(e: any, data: INavProps) {
